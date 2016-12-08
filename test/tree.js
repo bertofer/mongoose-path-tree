@@ -1,7 +1,8 @@
 var Mongoose = require('mongoose');
 var Tree = require('../lib/tree');
 var Async = require('async');
-var should = require('should');
+// var should = require('should');
+var should = require('chai').should()
 var _ = require('lodash');
 var shortId = require('shortid');
 
@@ -102,7 +103,7 @@ describe('tree tests', function () {
 
                         should.not.exist(err);
                         users.length.should.equal(5);
-                        _.pluck(users, 'name').should.not.include('Emily');
+                        _.map(users, 'name').should.not.include('Emily');
                         done();
                     });
                 });
@@ -124,7 +125,7 @@ describe('tree tests', function () {
                         should.not.exist(err);
 
                         users.length.should.equal(3);
-                        _.pluck(users, 'name').should.include('Adam').and.include('Bob');
+                        _.map(users, 'name').should.include('Adam').and.include('Bob');
                         done();
                     });
                 });
@@ -196,7 +197,7 @@ describe('tree tests', function () {
 
                     should.not.exist(err);
                     users.length.should.equal(1);
-                    _.pluck(users, 'name').should.include('Bob');
+                    _.map(users, 'name').should.include('Bob');
                     done();
                 });
             });
@@ -213,7 +214,7 @@ describe('tree tests', function () {
                     should.not.exist(err);
 
                     users.length.should.equal(2);
-                    _.pluck(users, 'name').should.include('Bob').and.include('Carol');
+                    _.map(users, 'name').should.include('Bob').and.include('Carol');
                     done();
                 });
             });
@@ -230,7 +231,7 @@ describe('tree tests', function () {
                     should.not.exist(err);
 
                     users.length.should.equal(2);
-                    _.pluck(users, 'name').should.include('Dann').and.include('Emily');
+                    _.map(users, 'name').should.include('Dann').and.include('Emily');
                     done();
                 });
             });
@@ -247,8 +248,8 @@ describe('tree tests', function () {
                     should.not.exist(err);
 
                     users.length.should.equal(2);
-                    users[0].should.not.have.property('parent');
-                    _.pluck(users, 'name').should.include('Dann').and.include('Emily');
+                    users[0].should.not.have.ownProperty('parent');
+                    _.map(users, 'name').should.include('Dann').and.include('Emily');
                     done();
                 });
             });
@@ -266,7 +267,7 @@ describe('tree tests', function () {
 
                     users.length.should.equal(2);
                     users[0].name.should.equal('Emily');
-                    _.pluck(users, 'name').should.include('Dann').and.include('Emily');
+                    _.map(users, 'name').should.include('Dann').and.include('Emily');
                     done();
                 });
             });
@@ -299,7 +300,7 @@ describe('tree tests', function () {
 
                     should.not.exist(err);
                     ancestors.length.should.equal(2);
-                    _.pluck(ancestors, 'name').should.include('Carol').and.include('Adam');
+                    _.map(ancestors, 'name').should.include('Carol').and.include('Adam');
                     done();
                 });
             });
@@ -314,9 +315,9 @@ describe('tree tests', function () {
                     should.not.exist(err);
 
                     ancestors.length.should.equal(2);
-                    ancestors[0].should.not.have.property('parent');
+                    ancestors[0].should.not.have.ownProperty('parent');
                     ancestors[0].should.have.property('name');
-                    _.pluck(ancestors, 'name').should.include('Carol').and.include('Adam');
+                    _.map(ancestors, 'name').should.include('Carol').and.include('Adam');
                     done();
                 });
             });
@@ -333,7 +334,7 @@ describe('tree tests', function () {
                     ancestors.length.should.equal(2);
                     ancestors[0].name.should.equal('Carol');
                     should.not.exist(ancestors[0].getAncestors);
-                    _.pluck(ancestors, 'name').should.include('Carol').and.include('Adam');
+                    _.map(ancestors, 'name').should.include('Carol').and.include('Adam');
                     done();
                 });
             });
